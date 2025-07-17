@@ -1,8 +1,9 @@
 import { Router } from "express";
-import { signupUser } from "../controllers/auth.contoller";
+import { signinUser, signupUser } from "../controllers/auth.contoller";
 import validateNullRegistrationInfo from "../middlewares/validateNullRegistrationInfo";
 import validateUsernameEmailReuse from "../middlewares/validateUsernameEmailReuse";
 import validatePasswordStrength from "../middlewares/validatePasswordStrength";
+import validateLoginInfo from "../middlewares/validateLoginInfo";
 
 const authRouter = Router();
 
@@ -13,5 +14,7 @@ authRouter.post(
   validatePasswordStrength,
   signupUser
 );
+
+authRouter.post("/login", validateLoginInfo, signinUser);
 
 export default authRouter;

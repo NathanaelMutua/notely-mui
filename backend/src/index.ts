@@ -1,8 +1,10 @@
 import { PrismaClient } from "@prisma/client";
 import express, { Express } from "express";
 import authRouter from "./routes/auth.router";
+import dotenv from "dotenv";
 
 const app: Express = express();
+dotenv.config();
 app.use(express.json());
 
 app.get("/", (_req, res) => {

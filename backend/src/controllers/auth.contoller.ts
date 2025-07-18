@@ -71,8 +71,9 @@ export const signinUser = async (req: Request, res: Response) => {
     const { password: loginPassword, dateJoined, ...userDetails } = matchedUser;
 
     const token = jwt.sign(userDetails, process.env.JWT_SECRET!);
-    res.cookie("Notely-User", token).json({
+    res.cookie("notelyToken", token).json({
       message: "SignIn successful. Let's get Notely!",
+      userDetails,
     });
   } catch (e) {
     // console.log(e)
@@ -89,13 +90,46 @@ export const signinUser = async (req: Request, res: Response) => {
 export const signoutUser = async (req: Request, res: Response) => {
   try {
     res
-      .clearCookie("Notely-User", {
+      .clearCookie("notelyToken", {
         path: "/",
       })
       .json({ message: "Logged out successfully. See you soon" });
   } catch (e) {
     res.status(500).json({
       message: "Something went wrong. Please Try again",
+    });
+  }
+};
+
+// Update Password
+export const updatePassword = async (req: Request, res: Response) => {
+  try {
+    const id = (req as any).notelyUser.id;
+    const { password } = req.body;
+
+    const hashedPassword = await bcrypt.hash(password, 10);
+
+    await myClient.user.update({
+      where: {
+        id,
+      },
+      data: {
+        password: hashedPassword,
+      },
+    });
+
+    res.status(200).json({
+      status: "success",
+      message:
+        "Password updated successfully. Your productivity vault is now double-locked.",
+    });
+  } catch (e) {
+    console.log(e);
+    res.status(500).json({
+      status: "error",
+      message:
+        "Password update failed—our server stumbled over its own shoelaces.",
+      suggestion: "Try again in a bit or notify the Notely tech wizards.",
     });
   }
 };

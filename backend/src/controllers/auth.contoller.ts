@@ -84,3 +84,18 @@ export const signinUser = async (req: Request, res: Response) => {
     });
   }
 };
+
+// Sign Out user implementation
+export const signoutUser = async (req: Request, res: Response) => {
+  try {
+    res
+      .clearCookie("Notely-User", {
+        path: "/",
+      })
+      .json({ message: "Logged out successfully. See you soon" });
+  } catch (e) {
+    res.status(500).json({
+      message: "Something went wrong. Please Try again",
+    });
+  }
+};

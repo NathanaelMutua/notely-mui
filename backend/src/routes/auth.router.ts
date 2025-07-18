@@ -1,5 +1,9 @@
 import { Router } from "express";
-import { signinUser, signupUser } from "../controllers/auth.contoller";
+import {
+  signinUser,
+  signoutUser,
+  signupUser,
+} from "../controllers/auth.contoller";
 import validateNullRegistrationInfo from "../middlewares/validateNullRegistrationInfo";
 import validateUsernameEmailReuse from "../middlewares/validateUsernameEmailReuse";
 import validatePasswordStrength from "../middlewares/validatePasswordStrength";
@@ -14,7 +18,7 @@ authRouter.post(
   validatePasswordStrength,
   signupUser
 );
-
 authRouter.post("/login", validateLoginInfo, signinUser);
+authRouter.post("/logout", signoutUser);
 
 export default authRouter;

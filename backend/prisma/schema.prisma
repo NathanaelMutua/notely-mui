@@ -18,6 +18,22 @@ model User {
   dateJoined        DateTime @default(now()) @map("date_joined")
   lastProfileUpdate DateTime @updatedAt @map("last_profile_update")
   isDeleted         Boolean  @default(false) @map("deleted_status")
+  entries           Entry[]
 
   @@map("users")
+}
+
+model Entry {
+  id          String   @id @default(ulid()) @map("user_id")
+  userId      String
+  title       String   @map("entry_title")
+  synopsis    String   @map("entry_synopsis")
+  content     String   @map("entry_content")
+  isDeleted   Boolean  @default(false)
+  dateCreated DateTime @default(now()) @map("date_created")
+  lastUpdated DateTime @updatedAt @map("entry_last_updated")
+
+  author User @relation(fields: [userId], references: [id])
+
+  @@map("entries")
 }

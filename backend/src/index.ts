@@ -3,6 +3,7 @@ import authRouter from "./routes/auth.router";
 import dotenv from "dotenv";
 import CookieParser from "cookie-parser";
 import cors from "cors";
+import entryRouter from "./routes/entry.router";
 
 const app: Express = express();
 dotenv.config();
@@ -22,6 +23,7 @@ app.get("/", (_req, res) => {
 });
 
 app.use("/api/auth", authRouter);
+app.use("/api/entry", entryRouter);
 
 const port = process.env.PORT || 7700;
 

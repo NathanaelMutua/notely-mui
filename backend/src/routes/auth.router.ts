@@ -5,13 +5,13 @@ import {
   signupUser,
   updatePassword,
 } from "../controllers/auth.contoller";
-import validateNullRegistrationInfo from "../middlewares/validateNullRegistrationInfo";
-import validateUsernameEmailReuse from "../middlewares/validateUsernameEmailReuse";
-import validatePasswordStrength from "../middlewares/validatePasswordStrength";
-import validateLoginInfo from "../middlewares/validateLoginInfo";
+import validateNullRegistrationInfo from "../middlewares/AuthValidations/validateNullRegistrationInfo";
+import validateUsernameEmailReuse from "../middlewares/AuthValidations/validateUsernameEmailReuse";
+import validatePasswordStrength from "../middlewares/AuthValidations/validatePasswordStrength";
+import validateLoginInfo from "../middlewares/AuthValidations/validateLoginInfo";
 import validateToken from "../middlewares/validateToken";
-import validatePasswordChangeInfo from "../middlewares/validatePasswordChangeInfo";
-import validatePasswordChangeMatch from "../middlewares/validatePasswordChangeMatch";
+import validatePasswordChangeInfo from "../middlewares/AuthValidations/validatePasswordChangeInfo";
+import validatePasswordChangeMatch from "../middlewares/AuthValidations/validatePasswordChangeMatch";
 
 const authRouter = Router();
 

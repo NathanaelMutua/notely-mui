@@ -101,3 +101,32 @@ export const getSpecificEntry = async (req: Request, res: Response) => {
     });
   }
 };
+
+// function to mark entry as deleted
+export const addEntryToTrash = async (req: Request, res: Response) => {
+  try {
+    const { id } = req.params;
+
+    const trashedEntry = await myClient.entry.update({
+      where: {
+        id,
+      },
+      data: {
+        isDeleted: true,
+      },
+    });
+    res.status(200).json({
+      status: "success",
+      message: "Entry successfully marked as deleted.",
+      entry: trashedEntry.title,
+    });
+  } catch (e) {
+    console.log(e);
+    res.status(500).json({
+      status: "error",
+      message:
+        "Something broke. Probably that spaghetti code we swore we fixed.",
+      recovery: "Try again, or send a motivational quote to the dev team.",
+    });
+  }
+};

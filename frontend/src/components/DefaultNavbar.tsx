@@ -1,7 +1,9 @@
 import { AppBar, Box, Button, Stack, Toolbar, Typography } from "@mui/material";
 import { FaRegNoteSticky } from "react-icons/fa6";
+import { useNavigate } from "react-router-dom";
 
 function DefaultNavbar() {
+  const navigate = useNavigate();
   return (
     <Box component="nav">
       <AppBar
@@ -56,8 +58,12 @@ function DefaultNavbar() {
               </Typography>
             </Stack>
             <Stack direction="row" height="3rem" spacing={2}>
-              <Button variant="contained">Login</Button>
-              <Button variant="contained">SignUp</Button>
+              <Button variant="contained" onClick={() => navigate("/sign-in")}>
+                Login
+              </Button>
+              <Button variant="contained" onClick={() => navigate("/sign-up")}>
+                SignUp
+              </Button>
             </Stack>
           </Stack>
         </Toolbar>

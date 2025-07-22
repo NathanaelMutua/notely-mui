@@ -33,12 +33,24 @@ const theme = createTheme({
           transition: "transform 0.15s, box-shadow 0.2s, background 0.3s",
           "&:hover": {
             boxShadow: "0 2px 8px 0 rgba(60, 60, 60, 0.35)",
-            transform: "translateY(-1.5px) scale(1.03)",
-            background: "#000",
+            transform: "translateY(-1.5px) scale(1.02)",
+            background: "rgba(0, 0, 0, 0.4)",
           },
           "&:active": {
             boxShadow: "0 1px 2px 0 rgba(60, 60, 60, 0.20)", // wanna make it come closer
             transform: "translateY(1px) scale(0.98)",
+          },
+        },
+        outlined: {
+          color: "#fff",
+          border: "1px solid rgba(255,255,255,0.5)",
+          textTransform: "capitalize",
+          fontSize: "1.1rem",
+          transition: "transform 0.15s, box-shadow 0.2s, background 0.3s",
+          "&:hover": {
+            boxShadow: "0 2px 8px 0 rgba(60, 60, 60, 0.35)",
+            transform: "translateY(-1.5px) scale(1.02)",
+            background: "rgba(255, 255, 255, 0.2)",
           },
         },
       },

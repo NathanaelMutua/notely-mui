@@ -13,6 +13,7 @@ import { useMutation } from "@tanstack/react-query";
 import { useState } from "react";
 import { MdPersonAddAlt1 } from "react-icons/md";
 import axiosInstance from "../api/axios";
+import { Link, useNavigate } from "react-router-dom";
 
 interface NotelyUser {
   firstName: string;
@@ -23,6 +24,7 @@ interface NotelyUser {
 }
 
 function SignUpCard() {
+  const navigate = useNavigate();
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
@@ -57,12 +59,13 @@ function SignUpCard() {
     },
     onError: (error) => {
       if (axios.isAxiosError(error)) {
-        setFormError(error.response?.data.game_of_throws);
+        setFormError(error.response?.data.message);
       } else {
         setFormError("An Error Occurred in SignUp!");
       }
     },
     onSuccess: () => {
+      navigate("/sign-in");
       clearData();
     },
   });
@@ -119,7 +122,8 @@ function SignUpCard() {
             width: "100%",
             marginTop: "8rem",
             padding: "3rem",
-            paddingTop: "4rem",
+            paddingTop: "3rem",
+            borderRadius: "15px",
           }}
         >
           <Stack
@@ -136,7 +140,19 @@ function SignUpCard() {
           <Stack spacing={1} pt={2}>
             {formError && (
               <Stack>
-                <Alert severity="error">{formError}</Alert>
+                <Alert
+                  severity="error"
+                  sx={{
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    backgroundColor: "rgba(255, 255, 255, 0.4)",
+                    fontSize: "1.4rem",
+                    color: "rgba(152, 15, 0, 1)",
+                  }}
+                >
+                  {formError}
+                </Alert>
               </Stack>
             )}
             <Stack>
@@ -188,6 +204,7 @@ function SignUpCard() {
                 Password
               </Typography>
               <TextField
+                type="password"
                 placeholder="Create a strong password"
                 size="small"
                 value={password}
@@ -199,11 +216,25 @@ function SignUpCard() {
             variant="contained"
             onClick={handleSignUp}
             loading={isPending}
-            sx={{ marginTop: "3rem" }}
+            sx={{ marginTop: "3rem", fontSize: "1.4rem" }}
             fullWidth
           >
             Create Account
           </Button>
+          <Typography
+            variant="body2"
+            textAlign="center"
+            fontSize="1.4rem"
+            pt={2}
+          >
+            <Link
+              to="/sign-in"
+              style={{ textDecoration: "none", color: "#fff" }}
+            >
+              Already have an account?{" "}
+              <span style={{ color: "#1976d2" }}>Sign-In Instead</span>
+            </Link>
+          </Typography>
         </Card>
       </Grid>
     </Grid>

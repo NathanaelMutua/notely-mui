@@ -73,7 +73,7 @@ export const signinUser = async (req: Request, res: Response) => {
     const token = jwt.sign(userDetails, process.env.JWT_SECRET!);
     res.cookie("notelyToken", token).json({
       message: "SignIn successful. Let's get Notely!",
-      userDetails,
+      user: `${userDetails.firstName} ${userDetails.lastName}:${userDetails.id}`,
     });
   } catch (e) {
     // console.log(e)

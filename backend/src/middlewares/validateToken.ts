@@ -7,7 +7,9 @@ const validateToken = (req: Request, res: Response, next: NextFunction) => {
 
   if (!token) {
     res.status(401).json({
-      message: "Sorry no token found!",
+      status: "unauthorized",
+      message:
+        "No token found. Log in and get your token - your VIP pass to Notely HQ.",
     });
     return;
   }
@@ -17,7 +19,10 @@ const validateToken = (req: Request, res: Response, next: NextFunction) => {
     (req as any).notelyUser = decoded as UserPayload;
   } catch (error) {
     res.status(403).json({
-      message: "Invalid token!",
+      status: "forbidden",
+      message: "Invalid token. Our productivity bouncer says 'nope.'",
+      reason:
+        "Token could be expired, malformed, or from an alternate dimension.",
     });
     return;
   }

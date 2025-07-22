@@ -29,7 +29,34 @@ export const createEntry = async (req: Request, res: Response) => {
       entry: `${title} by ${firstName}`,
     });
   } catch (e) {
-    console.log(e);
+    // console.log(e);
+    res.status(500).json({
+      status: "error",
+      message:
+        "Something broke. Probably that spaghetti code we swore we fixed.",
+      recovery: "Try again, or send a motivational quote to the dev team.",
+    });
+  }
+};
+
+// function to get all user entries
+export const getUserEntries = async (req: Request, res: Response) => {
+  try {
+    const id = (req as any).notelyUser.id;
+
+    const userEntries = await myClient.entry.findMany({
+      where: {
+        isDeleted: false,
+        userId: id,
+      },
+    });
+    res.status(200).json({
+      status: "retrieved",
+      message: `Pulled ${userEntries.length} notes from your creative vault.`,
+      entries: userEntries,
+    });
+  } catch (e) {
+    // console.log(e)
     res.status(500).json({
       status: "error",
       message:

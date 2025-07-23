@@ -185,3 +185,35 @@ export const restoreEntry = async (req: Request, res: Response) => {
     });
   }
 };
+
+// function to update an entry's details
+export const updateEntry = async (req: Request, res: Response) => {
+  try {
+    const { id } = req.params;
+    const { title, synopsis, content } = req.body;
+
+    const updatedEntry = await myClient.entry.update({
+      where: {
+        id,
+      },
+      data: {
+        title,
+        synopsis,
+        content,
+      },
+    });
+    res.status(200).json({
+      status: "success",
+      message: "Entry updates successfully",
+      entry: updatedEntry.title,
+    });
+  } catch (e) {
+    // console.log(e)
+    res.status(500).json({
+      status: "error",
+      message:
+        "Something broke. Probably that spaghetti code we swore we fixed.",
+      recovery: "Try again, or send a motivational quote to the dev team.",
+    });
+  }
+};

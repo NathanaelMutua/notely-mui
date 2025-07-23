@@ -132,7 +132,7 @@ export const addEntryToTrash = async (req: Request, res: Response) => {
 };
 
 //function to retrieve all the trashed entries
-export const fetchTrashedEntries = async (req: Request, res: Response) => {
+export const fetchTrashedEntries = async (_req: Request, res: Response) => {
   try {
     const trashedEntries = await myClient.entry.findMany({
       where: {
@@ -142,7 +142,8 @@ export const fetchTrashedEntries = async (req: Request, res: Response) => {
     res.status(200).json({
       status: "retrieved",
       message: `${trashedEntries.length} deleted entries recovered.`,
-      trashStatus: trashedEntries.length > 0 ? "Occupied" : "Empty bin 🗑️",
+      trash_status: trashedEntries.length > 0 ? "Occupied" : "Empty bin 🗑️",
+      trashed_entries: trashedEntries.length > 0 && trashedEntries,
     });
   } catch (e) {
     // console.log(e)

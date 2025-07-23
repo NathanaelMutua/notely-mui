@@ -9,12 +9,12 @@ import {
   updateEntry,
 } from "../controllers/entry.controller";
 import validateToken from "../middlewares/validateToken";
-import authRouter from "./auth.router";
 import validateNullEntryCreationInfo from "../middlewares/EntryValidations/validateEntryCreationInfo";
 import validateEntryId from "../middlewares/EntryValidations/validateEntryId";
 
 const entryRouter = Router();
 
+entryRouter.get("/trash", fetchTrashedEntries);
 entryRouter.post(
   "/",
   validateToken,
@@ -22,13 +22,13 @@ entryRouter.post(
   createEntry
 );
 entryRouter.get("/", validateToken, getUserEntries);
+entryRouter.patch("/restore/:id", validateToken, validateEntryId, restoreEntry);
 entryRouter.get("/:id", validateToken, validateEntryId, getSpecificEntry);
 entryRouter.delete("/:id", validateToken, validateEntryId, addEntryToTrash);
-entryRouter.get("/trash", validateToken, validateEntryId, fetchTrashedEntries);
-entryRouter.patch("/restore/:id", validateToken, validateEntryId, restoreEntry);
 entryRouter.patch(
   "/:id",
   validateToken,
+  validateEntryId,
   validateNullEntryCreationInfo,
   updateEntry
 );

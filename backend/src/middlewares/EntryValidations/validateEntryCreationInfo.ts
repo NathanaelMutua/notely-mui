@@ -34,3 +34,5 @@ const validateNullEntryCreationInfo = async (
 
   next();
 };
+
+export default validateNullEntryCreationInfo;

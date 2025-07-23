@@ -130,3 +130,27 @@ export const addEntryToTrash = async (req: Request, res: Response) => {
     });
   }
 };
+
+//function to retrieve all the trashed entries
+export const fetchTrashedEntries = async (req: Request, res: Response) => {
+  try {
+    const trashedEntries = await myClient.entry.findMany({
+      where: {
+        isDeleted: true,
+      },
+    });
+    res.status(200).json({
+      status: "retrieved",
+      message: `${trashedEntries.length} deleted entries recovered.`,
+      trashStatus: trashedEntries.length > 0 ? "Occupied" : "Empty bin 🗑️",
+    });
+  } catch (e) {
+    // console.log(e)
+    res.status(500).json({
+      status: "error",
+      message:
+        "Something broke. Probably that spaghetti code we swore we fixed.",
+      recovery: "Try again, or send a motivational quote to the dev team.",
+    });
+  }
+};

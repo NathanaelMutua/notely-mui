@@ -154,3 +154,34 @@ export const fetchTrashedEntries = async (req: Request, res: Response) => {
     });
   }
 };
+
+// function to restore a specific deleted entry
+export const restoreEntry = async (req: Request, res: Response) => {
+  try {
+    const { id } = req.params;
+
+    const restoredEntry = await myClient.entry.update({
+      where: {
+        id,
+        isDeleted: true,
+      },
+      data: {
+        isDeleted: false,
+      },
+    });
+
+    res.status(200).json({
+      status: "restored",
+      message: "Entry restored successfully.",
+      entry: restoredEntry.title,
+    });
+  } catch (e) {
+    // console.log(e)
+    res.status(500).json({
+      status: "error",
+      message:
+        "Something broke. Probably that spaghetti code we swore we fixed.",
+      recovery: "Try again, or send a motivational quote to the dev team.",
+    });
+  }
+};

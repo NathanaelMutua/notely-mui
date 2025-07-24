@@ -5,6 +5,8 @@ import Header from "./components/Header";
 import { ThemeProvider } from "@emotion/react";
 import theme from "./assets/theme";
 import SignInPage from "./pages/SignInPage";
+import HomePage from "./pages/HomePage";
+import DefaultFooter from "./components/DefaultFooter";
 
 function App() {
   return (
@@ -13,9 +15,11 @@ function App() {
         <BrowserRouter>
           <Header />
           <Routes>
+            <Route path="/" element={<HomePage />} />
             <Route path="/sign-up" element={<SignUpPage />} />
             <Route path="/sign-in" element={<SignInPage />} />
           </Routes>
+          <DefaultFooter />
         </BrowserRouter>
       </ThemeProvider>
     </>

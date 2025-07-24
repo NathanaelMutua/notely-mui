@@ -21,7 +21,7 @@ interface NotelyUser {
 }
 
 function SignInCard() {
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
   const [userIdentifier, setUserIdentifier] = useState("");
   const [password, setPassword] = useState("");
   const [formError, setFormError] = useState("");
@@ -57,7 +57,7 @@ function SignInCard() {
       }
     },
     onSuccess: () => {
-      // navigate("/");
+      navigate("/");
       clearData();
     },
   });

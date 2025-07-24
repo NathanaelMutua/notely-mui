@@ -14,7 +14,6 @@ import validateEntryId from "../middlewares/EntryValidations/validateEntryId";
 
 const entryRouter = Router();
 
-entryRouter.get("/trash", fetchTrashedEntries);
 entryRouter.post(
   "/",
   validateToken,
@@ -22,6 +21,7 @@ entryRouter.post(
   createEntry
 );
 entryRouter.get("/", validateToken, getUserEntries);
+entryRouter.get("/trash", fetchTrashedEntries);
 entryRouter.patch("/restore/:id", validateToken, validateEntryId, restoreEntry);
 entryRouter.get("/:id", validateToken, validateEntryId, getSpecificEntry);
 entryRouter.delete("/:id", validateToken, validateEntryId, addEntryToTrash);

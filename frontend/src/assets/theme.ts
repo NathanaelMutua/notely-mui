@@ -8,6 +8,9 @@ const theme = createTheme({
     background: { default: "#fafafa", paper: "#ffffff" },
     text: { primary: grey[50], secondary: grey[600] },
   },
+  typography: {
+    fontFamily: '"Roboto", sans-serif',
+  },
   components: {
     MuiCard: {
       defaultProps: {
@@ -37,7 +40,7 @@ const theme = createTheme({
             background: "rgba(0, 0, 0, 0.4)",
           },
           "&:active": {
-            boxShadow: "0 1px 2px 0 rgba(60, 60, 60, 0.20)", // wanna make it come closer
+            boxShadow: "0 1px 2px 0 rgba(60, 60, 60, 0.20)",
             transform: "translateY(1px) scale(0.98)",
           },
         },

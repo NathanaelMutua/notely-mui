@@ -71,10 +71,7 @@ export const signinUser = async (req: Request, res: Response) => {
     const { password: loginPassword, dateJoined, ...userDetails } = matchedUser;
 
     const token = jwt.sign(userDetails, process.env.JWT_SECRET!);
-    res.cookie("notelyToken", token).json({
-      message: "SignIn successful. Let's get Notely!",
-      user: `${userDetails.firstName} ${userDetails.lastName}:${userDetails.id}`,
-    });
+    res.cookie("notelyToken", token).json(userDetails);
   } catch (e) {
     // console.log(e)
     res.status(500).json({
@@ -124,7 +121,7 @@ export const updatePassword = async (req: Request, res: Response) => {
         "Password updated successfully. Your productivity vault is now double-locked.",
     });
   } catch (e) {
-    console.log(e);
+    // console.log(e);
     res.status(500).json({
       status: "error",
       message:

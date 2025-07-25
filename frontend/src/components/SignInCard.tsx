@@ -14,6 +14,7 @@ import { CgEnter } from "react-icons/cg";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import axiosInstance from "../api/axios";
+import useUser from "../store/userStore";
 
 interface NotelyUser {
   userIdentifier: string;
@@ -21,6 +22,7 @@ interface NotelyUser {
 }
 
 function SignInCard() {
+  const { setUser } = useUser();
   const navigate = useNavigate();
   const [userIdentifier, setUserIdentifier] = useState("");
   const [password, setPassword] = useState("");
@@ -56,7 +58,8 @@ function SignInCard() {
         setFormError("An Error Occurred in SignUp!");
       }
     },
-    onSuccess: () => {
+    onSuccess: (notelyData) => {
+      setUser(notelyData);
       navigate("/");
       clearData();
     },

@@ -12,7 +12,7 @@ app.use(CookieParser());
 
 app.use(
   cors({
-    origin: ["http://localhost:5173"],
+    origin: ["http://localhost:5174"],
     methods: ["POST", "GET", "PUT", "PATCH", "DELETE"],
     credentials: true, // Allow cookies to be sent
   })

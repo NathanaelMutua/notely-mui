@@ -27,3 +27,30 @@ body::before {
   z-index: -1;
   pointer-events: none;
 }
+
+.menu-item {
+  transition: 0.3s;
+}
+
+.menu-item:hover {
+  color: #393939;
+  scale: 1.2;
+}
+
+.menu-item:active {
+  scale: 0.95;
+}
+
+.profile-link {
+  transition: 0.3s;
+  border-radius: 5px;
+}
+
+.profile-link:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+  padding: 0.1rem 0.5rem;
+}
+
+.profile-link:active {
+  scale: 0.95;
+}

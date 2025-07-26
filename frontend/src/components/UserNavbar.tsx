@@ -13,10 +13,18 @@ import { FaRegNoteSticky } from "react-icons/fa6";
 import { Link, useNavigate } from "react-router-dom";
 import { GoNote } from "react-icons/go";
 import useUser from "../store/userStore";
+import axiosInstance from "../api/axios";
 
 function UserNavbar() {
-  const { user } = useUser();
+  const { user, logoutUser } = useUser();
   const navigate = useNavigate();
+
+  async function handleSignOut() {
+    const response = await axiosInstance.post("/api/auth/logout");
+    logoutUser();
+    console.log(response.data);
+    navigate("/");
+  }
   return (
     <Box component="nav">
       <AppBar
@@ -161,7 +169,7 @@ function UserNavbar() {
               </Link>
               <Button
                 variant="contained"
-                onClick={() => navigate("/sign-out")}
+                onClick={handleSignOut}
                 sx={{ padding: "0.5rem 1rem" }}
               >
                 Sign-Out

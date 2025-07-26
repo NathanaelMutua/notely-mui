@@ -78,7 +78,7 @@ function UserNavbar() {
               spacing={2}
               alignItems="center"
             >
-              <Link to="/" style={{ textDecoration: "none" }}>
+              <Link to="/notes" style={{ textDecoration: "none" }}>
                 <Stack
                   direction="row"
                   alignItems="center"
@@ -159,7 +159,11 @@ function UserNavbar() {
                   </Avatar>
                 </Stack>
               </Link>
-              <Button variant="contained" onClick={() => navigate("/sign-out")}>
+              <Button
+                variant="contained"
+                onClick={() => navigate("/sign-out")}
+                sx={{ padding: "0.5rem 1rem" }}
+              >
                 Sign-Out
               </Button>
             </Stack>

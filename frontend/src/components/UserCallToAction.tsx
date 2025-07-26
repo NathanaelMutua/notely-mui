@@ -6,10 +6,10 @@ import {
   CardContent,
   Typography,
 } from "@mui/material";
-import { FaArrowRightFromBracket } from "react-icons/fa6";
+import { FaPlus } from "react-icons/fa6";
 import { useNavigate } from "react-router-dom";
 
-function DefaultCallToAction() {
+function UserCallToAction() {
   const navigate = useNavigate();
   return (
     <Box
@@ -36,22 +36,23 @@ function DefaultCallToAction() {
             fontSize="4rem"
             textAlign="center"
           >
-            Ready to Transform Your Note-Taking?
+            Never miss a Notely moment
           </Typography>
           <Typography variant="body1" fontSize="1.4rem" textAlign="center">
-            Join thousands of users who have already discovered the future of
-            digital note-taking.
-            <br /> Start your journey today.
+            Subscribe to our newsletter and stay inspired.
+            <br />
+            Exclusive tips, feature previews, and productivity magic—delivered
+            monthly.
           </Typography>
         </CardContent>
         <CardActions sx={{ justifyContent: "center" }}>
           <Button
             variant="contained"
-            startIcon={<FaArrowRightFromBracket />}
+            startIcon={<FaPlus />}
             style={{ padding: "0.5rem 2rem", fontSize: "1.4rem" }}
-            onClick={() => navigate("/sign-up")}
+            onClick={() => navigate("/subscribe")}
           >
-            Create your account
+            Join the List
           </Button>
         </CardActions>
       </Card>
@@ -59,4 +60,4 @@ function DefaultCallToAction() {
   );
 }
 
-export default DefaultCallToAction;
+export default UserCallToAction;

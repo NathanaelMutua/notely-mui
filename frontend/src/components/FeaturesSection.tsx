@@ -7,7 +7,7 @@ import { MdCloudSync } from "react-icons/md";
 
 function FeaturesSection() {
   return (
-    <Box>
+    <Box mt={15}>
       <Stack display="flex" alignItems="center" justifyContent="center">
         <Box
           sx={{

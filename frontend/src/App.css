@@ -54,3 +54,37 @@ body::before {
 .profile-link:active {
   scale: 0.95;
 }
+
+.markdown-body {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  padding: 1rem;
+}
+
+.markdown-body h1,
+.markdown-body h2 {
+  padding-block: 0.8rem;
+}
+
+.markdown-body h3,
+.markdown-body h4,
+.markdown-body h5,
+.markdown-body h6 {
+  padding-block: 0.4rem;
+}
+
+.markdown-body ul,
+.markdown-body ul {
+  padding-left: 2rem;
+}
+
+.markdown-body li::first-letter {
+  text-transform: uppercase;
+}
+
+.markdown-body p {
+  padding-block: 0.2rem;
+}
+
+.markdown-body hr {
+  margin-block: 1rem;
+}

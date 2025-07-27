@@ -11,6 +11,7 @@ import {
 import validateToken from "../middlewares/validateToken";
 import validateNullEntryCreationInfo from "../middlewares/EntryValidations/validateEntryCreationInfo";
 import validateEntryId from "../middlewares/EntryValidations/validateEntryId";
+import markdownToHtml from "../middlewares/markdownToHtml";
 
 const entryRouter = Router();
 
@@ -18,6 +19,7 @@ entryRouter.post(
   "/",
   validateToken,
   validateNullEntryCreationInfo,
+  markdownToHtml,
   createEntry
 );
 entryRouter.get("/", validateToken, getUserEntries);

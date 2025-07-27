@@ -9,6 +9,7 @@ import HomePage from "./pages/HomePage";
 import DefaultFooter from "./components/DefaultFooter";
 import Protected from "./components/RouteProtector";
 import MyNotesPage from "./pages/MyNotesPage";
+import CreateEntryPage from "./pages/CreateEntryPage";
 
 function App() {
   return (
@@ -28,7 +29,16 @@ function App() {
                 </Protected>
               }
             />
+            <Route
+              path="/create"
+              element={
+                <Protected>
+                  <CreateEntryPage />
+                </Protected>
+              }
+            />
           </Routes>
+
           <DefaultFooter />
         </BrowserRouter>
       </ThemeProvider>

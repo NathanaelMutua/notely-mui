@@ -4,15 +4,18 @@ import {
   CardContent,
   Divider,
   Grid,
+  IconButton,
   Stack,
   Typography,
 } from "@mui/material";
-import { MdNotes } from "react-icons/md";
+import { MdNotes, MdOutlineDeleteOutline } from "react-icons/md";
 import FormattedDate from "./FormattedDate";
 import { IoIosCalendar } from "react-icons/io";
 import LoadingComponent from "./LoadingComponent";
 import axiosInstance from "../api/axios";
 import { useQuery } from "@tanstack/react-query";
+import { FaRegEdit } from "react-icons/fa";
+import { VscOpenPreview } from "react-icons/vsc";
 
 interface Entry {
   id: string;
@@ -75,7 +78,14 @@ function EntryListing() {
                   <Typography variant="body1" fontSize="1.4rem">
                     {entry.synopsis}
                   </Typography>
-                  <Box position="absolute" bottom="1rem">
+
+                  <Box
+                    position="absolute"
+                    bottom="1rem"
+                    display="flex"
+                    justifyContent="space-between"
+                    width="90%"
+                  >
                     <Stack direction="row" spacing={1} alignItems="center">
                       <IoIosCalendar
                         style={{ fontSize: "1.2rem", color: "secondary" }}
@@ -88,6 +98,26 @@ function EntryListing() {
                         <FormattedDate isoDate={entry.lastUpdated} />
                       </Typography>
                     </Stack>
+                    <Box alignItems="center">
+                      {/* read */}
+                      <IconButton
+                        sx={{ color: "text.primary", fontSize: "2rem" }}
+                      >
+                        <VscOpenPreview />
+                      </IconButton>
+                      {/* edit */}
+                      <IconButton
+                        sx={{ color: "primary.main", fontSize: "2rem" }}
+                      >
+                        <FaRegEdit />
+                      </IconButton>
+                      {/* delete */}
+                      <IconButton
+                        sx={{ color: "rgba(181, 44, 44, 1)", fontSize: "2rem" }}
+                      >
+                        <MdOutlineDeleteOutline />
+                      </IconButton>
+                    </Box>
                   </Box>
                 </CardContent>
               </Card>

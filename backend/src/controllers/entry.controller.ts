@@ -57,6 +57,9 @@ export const getUserEntries = async (req: Request, res: Response) => {
           },
         },
       },
+      orderBy: {
+        lastUpdated: "desc",
+      },
     });
     res.status(200).json({
       status: "retrieved",

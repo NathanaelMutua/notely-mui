@@ -17,7 +17,12 @@ interface Props {
 
 const Markdown: React.FC<Props> = ({ children }) => {
   const htmlContent = md.render(children);
-  return <div dangerouslySetInnerHTML={{ __html: htmlContent }} />;
+  return (
+    <div
+      className="markdown-body"
+      dangerouslySetInnerHTML={{ __html: htmlContent }}
+    />
+  );
 };
 
 export default Markdown;

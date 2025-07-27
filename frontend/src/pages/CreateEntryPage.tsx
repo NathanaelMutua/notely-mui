@@ -170,10 +170,7 @@ function CreateEntryPage() {
                   }}
                 />
                 {content ? (
-                  <span
-                    style={{ fontSize: "1.4rem" }}
-                    className="markdown-body"
-                  >
+                  <span style={{ fontSize: "1.4rem" }}>
                     <Markdown>{content}</Markdown>
                   </span>
                 ) : (

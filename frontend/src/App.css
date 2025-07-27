@@ -68,7 +68,8 @@ body::before {
 .markdown-body h3,
 .markdown-body h4,
 .markdown-body h5,
-.markdown-body h6 {
+.markdown-body h6,
+.markdown-body pre {
   padding-block: 0.4rem;
 }
 
@@ -87,4 +88,11 @@ body::before {
 
 .markdown-body hr {
   margin-block: 1rem;
+}
+
+.markdown-body blockquote {
+  margin-block: 2rem;
+  padding: 1rem;
+  background-color: rgba(255, 255, 255, 0.2);
+  border-radius: 5px;
 }

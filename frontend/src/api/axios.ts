@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const axiosInstance = axios.create({
-  baseURL: "http://localhost:7700",
+  baseURL: "https://notely-mui.onrender.com",
   withCredentials: true,
 });
 

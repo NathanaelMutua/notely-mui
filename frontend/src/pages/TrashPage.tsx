@@ -1,6 +1,6 @@
 import { Box, Typography } from "@mui/material";
 import PageHeader from "../components/PageHeader";
-import TrashListing from "../components/TRashListing";
+import TrashListing from "../components/TrashListing";
 import { IoWarning } from "react-icons/io5";
 
 function TrashPage() {

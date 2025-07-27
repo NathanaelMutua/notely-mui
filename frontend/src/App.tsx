@@ -10,6 +10,7 @@ import DefaultFooter from "./components/DefaultFooter";
 import Protected from "./components/RouteProtector";
 import MyNotesPage from "./pages/MyNotesPage";
 import CreateEntryPage from "./pages/CreateEntryPage";
+import TrashPage from "./pages/TrashPage";
 
 function App() {
   return (
@@ -34,6 +35,14 @@ function App() {
               element={
                 <Protected>
                   <CreateEntryPage />
+                </Protected>
+              }
+            />
+            <Route
+              path="/trash"
+              element={
+                <Protected>
+                  <TrashPage />
                 </Protected>
               }
             />

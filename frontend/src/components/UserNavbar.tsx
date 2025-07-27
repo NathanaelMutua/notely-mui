@@ -118,7 +118,7 @@ function UserNavbar() {
                   </Typography>
                 </Stack>
               </Link>
-              <Link to="/" style={{ textDecoration: "none" }}>
+              <Link to="/trash" style={{ textDecoration: "none" }}>
                 <Stack
                   direction="row"
                   alignItems="center"

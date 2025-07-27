@@ -141,6 +141,9 @@ export const fetchTrashedEntries = async (_req: Request, res: Response) => {
       where: {
         isDeleted: true,
       },
+      orderBy: {
+        lastUpdated: "desc",
+      },
     });
     res.status(200).json({
       status: "retrieved",

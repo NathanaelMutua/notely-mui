@@ -16,6 +16,7 @@ import axiosInstance from "../api/axios";
 import { useQuery } from "@tanstack/react-query";
 import { FaRegEdit } from "react-icons/fa";
 import { VscOpenPreview } from "react-icons/vsc";
+import { useNavigate } from "react-router-dom";
 
 interface Entry {
   id: string;
@@ -28,6 +29,7 @@ interface Entry {
 }
 
 function EntryListing() {
+  const navigate = useNavigate();
   const { data, isLoading } = useQuery({
     queryKey: ["get-entries"],
     queryFn: async () => {
@@ -102,6 +104,7 @@ function EntryListing() {
                       {/* read */}
                       <IconButton
                         sx={{ color: "text.primary", fontSize: "2rem" }}
+                        onClick={() => navigate(`/entry/${entry.id}`)}
                       >
                         <VscOpenPreview />
                       </IconButton>

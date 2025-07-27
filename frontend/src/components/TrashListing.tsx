@@ -15,8 +15,9 @@ import { IoIosCalendar } from "react-icons/io";
 import LoadingComponent from "./LoadingComponent";
 import axiosInstance from "../api/axios";
 import { useQueryClient, useQuery, useMutation } from "@tanstack/react-query";
-import { FaRegEdit, FaTrashRestoreAlt } from "react-icons/fa";
+import { FaTrashRestoreAlt } from "react-icons/fa";
 import { VscOpenPreview } from "react-icons/vsc";
+import { useNavigate } from "react-router-dom";
 
 interface Entry {
   id: string;
@@ -29,6 +30,7 @@ interface Entry {
 }
 
 function TrashListing() {
+  const navigate = useNavigate();
   const queryClient = useQueryClient();
   async function handleEntryRestore(id: string) {
     mutate(id);
@@ -117,18 +119,13 @@ function TrashListing() {
                         <FormattedDate isoDate={entry.lastUpdated} />
                       </Typography>
                     </Stack>
-                    <Box display="flex" alignItems="center">
+                    <Box display="flex" alignItems="center" gap={1}>
                       {/* read */}
                       <IconButton
                         sx={{ color: "text.primary", fontSize: "2rem" }}
+                        onClick={() => navigate(`/entry/${entry.id}`)}
                       >
                         <VscOpenPreview />
-                      </IconButton>
-                      {/* edit */}
-                      <IconButton
-                        sx={{ color: "primary.main", fontSize: "2rem" }}
-                      >
-                        <FaRegEdit />
                       </IconButton>
                       {/* restore */}
                       <Button

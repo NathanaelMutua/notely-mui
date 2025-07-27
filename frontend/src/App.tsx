@@ -11,6 +11,7 @@ import Protected from "./components/RouteProtector";
 import MyNotesPage from "./pages/MyNotesPage";
 import CreateEntryPage from "./pages/CreateEntryPage";
 import TrashPage from "./pages/TrashPage";
+import EntryPage from "./pages/EntryPage";
 
 function App() {
   return (
@@ -43,6 +44,14 @@ function App() {
               element={
                 <Protected>
                   <TrashPage />
+                </Protected>
+              }
+            />
+            <Route
+              path="/entry/:id"
+              element={
+                <Protected>
+                  <EntryPage />
                 </Protected>
               }
             />

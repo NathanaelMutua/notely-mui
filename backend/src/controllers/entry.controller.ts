@@ -84,7 +84,6 @@ export const getSpecificEntry = async (req: Request, res: Response) => {
 
     const retrievedEntry = await myClient.entry.findFirst({
       where: {
-        isDeleted: false,
         id,
       },
     });

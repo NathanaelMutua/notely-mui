@@ -77,7 +77,11 @@ function EntryListing() {
                       borderRadius: "2px",
                     }}
                   />
-                  <Typography variant="body1" fontSize="1.4rem">
+                  <Typography
+                    variant="body1"
+                    fontSize="1.4rem"
+                    paddingBottom="2.3rem"
+                  >
                     {entry.synopsis}
                   </Typography>
 
@@ -111,6 +115,7 @@ function EntryListing() {
                       {/* edit */}
                       <IconButton
                         sx={{ color: "primary.main", fontSize: "2rem" }}
+                        onClick={() => navigate(`/update/${entry.id}`)}
                       >
                         <FaRegEdit />
                       </IconButton>

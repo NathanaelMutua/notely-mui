@@ -102,7 +102,7 @@ function EntryPage() {
                   className="markdown-body"
                   sx={{ mt: 2, backgroundColor: "rgba(0, 62, 56, 0.31)" }}
                   dangerouslySetInnerHTML={{
-                    __html: `${data.content}`,
+                    __html: `${data.htmlContent}`,
                   }}
                 />
                 <CardActions sx={{ paddingInline: 0, marginTop: "1rem" }}>

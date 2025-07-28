@@ -10,12 +10,14 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Markdown from "../components/Markdown";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import axiosInstance from "../api/axios";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+import LoadingComponent from "../components/LoadingComponent";
+import { useQueryClient } from "@tanstack/react-query";
 
 interface Entry {
   title: string;
@@ -23,17 +25,44 @@ interface Entry {
   content: string;
 }
 
-function CreateEntryPage() {
+function UpdateEntryPage() {
   const navigate = useNavigate();
+  const queryClient = useQueryClient();
   const [title, setTitle] = useState("");
   const [synopsis, setSynopsis] = useState("");
   const [content, setContent] = useState("");
   const [formError, setFormError] = useState("");
 
-  function handleCreateEntry() {
+  const { id } = useParams();
+
+  const { data, isLoading } = useQuery({
+    queryKey: ["get-specific-entry"],
+    queryFn: async () => {
+      const response = await axiosInstance.get(`/api/entry/${id}`);
+      console.log(response);
+      return response.data.entry;
+    },
+  });
+  if (isLoading) {
+    return (
+      <Box paddingTop={6}>
+        <LoadingComponent />
+      </Box>
+    );
+  }
+
+  useEffect(() => {
+    if (data) {
+      setTitle(data.title);
+      setSynopsis(data.synopsis);
+      setContent(data.content);
+    }
+  }, [data]);
+
+  function handleUpdateEntry() {
     setFormError("");
-    const newEntry = { title, synopsis, content };
-    mutate(newEntry);
+    const updatedEntry = { title, synopsis, content };
+    mutate(updatedEntry);
   }
 
   function clearData() {
@@ -43,9 +72,12 @@ function CreateEntryPage() {
   }
 
   const { mutate, isPending } = useMutation({
-    mutationKey: ["create-entry"],
-    mutationFn: async (newEntry: Entry) => {
-      const response = await axiosInstance.post("/api/entry", newEntry);
+    mutationKey: ["update-entry"],
+    mutationFn: async (updatedEntry: Entry) => {
+      const response = await axiosInstance.patch(
+        `/api/entry/${id}`,
+        updatedEntry
+      );
       console.log(response);
       return response.data;
     },
@@ -57,6 +89,9 @@ function CreateEntryPage() {
       }
     },
     onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: ["get-entries"],
+      });
       navigate("/notes");
       clearData();
     },
@@ -68,7 +103,7 @@ function CreateEntryPage() {
           <Card sx={{ minHeight: "30rem", p: 3 }}>
             <CardContent>
               <Typography variant="h3" fontWeight="bold" gutterBottom>
-                Create New Entry
+                Update Entry
               </Typography>
               {formError && <Alert severity="error">{formError}</Alert>}
               <Stack spacing={3}>
@@ -117,9 +152,9 @@ function CreateEntryPage() {
                   variant="contained"
                   sx={{ textTransform: "capitalize" }}
                   loading={isPending}
-                  onClick={handleCreateEntry}
+                  onClick={handleUpdateEntry}
                 >
-                  create
+                  update
                 </Button>
               </Stack>
             </CardContent>
@@ -187,4 +222,4 @@ function CreateEntryPage() {
   );
 }
 
-export default CreateEntryPage;
+export default UpdateEntryPage;

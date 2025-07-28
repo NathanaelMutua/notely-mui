@@ -10,21 +10,21 @@ dotenv.config();
 app.use(express.json());
 app.use(CookieParser());
 
-// app.use(
-//   cors({
-//     origin: ["http://localhost:5174"],
-//     methods: ["POST", "GET", "PUT", "PATCH", "DELETE"],
-//     credentials: true, // Allow cookies to be sent
-//   })
-// );
-
 app.use(
   cors({
-    origin: ["https://notely-mui-frontend.onrender.com"],
+    origin: ["http://localhost:5173"],
     methods: ["POST", "GET", "PUT", "PATCH", "DELETE"],
     credentials: true, // Allow cookies to be sent
   })
 );
+
+// app.use(
+//   cors({
+//     origin: ["https://notely-mui-frontend.onrender.com"],
+//     methods: ["POST", "GET", "PUT", "PATCH", "DELETE"],
+//     credentials: true, // Allow cookies to be sent
+//   })
+// );
 
 app.get("/", (_req, res) => {
   res.send("<h1 style='text-align:center;' >Notely API</h1>");

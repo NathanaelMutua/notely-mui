@@ -29,6 +29,7 @@ model Entry {
   title       String   @map("entry_title")
   synopsis    String   @map("entry_synopsis")
   content     String   @map("entry_content")
+  htmlContent String   @map("html_content")
   isDeleted   Boolean  @default(false)
   dateCreated DateTime @default(now()) @map("date_created")
   lastUpdated DateTime @updatedAt @map("entry_last_updated")

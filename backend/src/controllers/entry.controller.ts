@@ -6,7 +6,7 @@ const myClient = new PrismaClient();
 // function to create an entry
 export const createEntry = async (req: Request, res: Response) => {
   try {
-    const { title, synopsis, content } = req.body;
+    const { title, synopsis, content, htmlContent } = req.body;
     const { id, firstName } = (req as any).notelyUser;
 
     if (!id) {
@@ -21,6 +21,7 @@ export const createEntry = async (req: Request, res: Response) => {
         title,
         synopsis,
         content,
+        htmlContent,
       },
     });
     res.status(200).json({
@@ -182,7 +183,7 @@ export const restoreEntry = async (req: Request, res: Response) => {
       entry: restoredEntry.title,
     });
   } catch (e) {
-    // console.log(e)
+    console.log(e);
     res.status(500).json({
       status: "error",
       message:
@@ -196,7 +197,7 @@ export const restoreEntry = async (req: Request, res: Response) => {
 export const updateEntry = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
-    const { title, synopsis, content } = req.body;
+    const { title, synopsis, content, htmlContent } = req.body;
 
     const updatedEntry = await myClient.entry.update({
       where: {
@@ -206,11 +207,12 @@ export const updateEntry = async (req: Request, res: Response) => {
         title,
         synopsis,
         content,
+        htmlContent,
       },
     });
     res.status(200).json({
       status: "success",
-      message: "Entry updates successfully",
+      message: "Entry updated successfully",
       entry: updatedEntry.title,
     });
   } catch (e) {

@@ -12,6 +12,7 @@ import MyNotesPage from "./pages/MyNotesPage";
 import CreateEntryPage from "./pages/CreateEntryPage";
 import TrashPage from "./pages/TrashPage";
 import EntryPage from "./pages/EntryPage";
+import UpdateEntryPage from "./pages/UpdateEntryPage";
 
 function App() {
   return (
@@ -52,6 +53,14 @@ function App() {
               element={
                 <Protected>
                   <EntryPage />
+                </Protected>
+              }
+            />
+            <Route
+              path="/update/:id"
+              element={
+                <Protected>
+                  <UpdateEntryPage />
                 </Protected>
               }
             />

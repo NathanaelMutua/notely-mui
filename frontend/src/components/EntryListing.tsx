@@ -13,7 +13,7 @@ import FormattedDate from "./FormattedDate";
 import { IoIosCalendar } from "react-icons/io";
 import LoadingComponent from "./LoadingComponent";
 import axiosInstance from "../api/axios";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { FaRegEdit } from "react-icons/fa";
 import { VscOpenPreview } from "react-icons/vsc";
 import { useNavigate } from "react-router-dom";
@@ -30,6 +30,7 @@ interface Entry {
 
 function EntryListing() {
   const navigate = useNavigate();
+  const queryClient = useQueryClient();
   const { data, isLoading } = useQuery({
     queryKey: ["get-entries"],
     queryFn: async () => {
@@ -38,6 +39,24 @@ function EntryListing() {
       return response.data.entries;
     },
   });
+
+  async function handleDeleteEntry(id: string) {
+    mutate(id);
+  }
+
+  const { mutate, isPending } = useMutation({
+    mutationFn: async (id: string) => {
+      const response = await axiosInstance.delete(`/api/entry/${id}`);
+      console.log(response);
+      return response.data;
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: ["get-entries"],
+      });
+    },
+  });
+
   if (isLoading) {
     return (
       <Box paddingTop={6}>
@@ -45,9 +64,22 @@ function EntryListing() {
       </Box>
     );
   }
+
   return (
     <Box padding="3rem">
       <Grid container justifyContent="center" spacing={3}>
+        {data && data.length === 0 && (
+          <Box width="100%" textAlign="center" mt={4} padding={4}>
+            <Typography
+              variant="h4"
+              color="rgba(198, 62, 62, 1)"
+              textTransform="capitalize"
+              fontWeight="bold"
+            >
+              No entries yet. Let your ideas take the stage!
+            </Typography>
+          </Box>
+        )}
         {data &&
           data.map((entry: Entry) => (
             <Grid
@@ -122,6 +154,8 @@ function EntryListing() {
                       {/* delete */}
                       <IconButton
                         sx={{ color: "rgba(181, 44, 44, 1)", fontSize: "2rem" }}
+                        onClick={() => handleDeleteEntry(entry.id)}
+                        loading={isPending}
                       >
                         <MdOutlineDeleteOutline />
                       </IconButton>

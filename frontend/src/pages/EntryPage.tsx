@@ -10,15 +10,16 @@ import {
   Typography,
 } from "@mui/material";
 import { useQuery } from "@tanstack/react-query";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import axiosInstance from "../api/axios";
 import LoadingComponent from "../components/LoadingComponent";
-import { MdNotes, MdOutlineDeleteOutline } from "react-icons/md";
+import { MdNotes } from "react-icons/md";
 import { FaRegEdit } from "react-icons/fa";
 import FormattedDate from "../components/FormattedDate";
 import { IoIosCalendar } from "react-icons/io";
 
 function EntryPage() {
+  const navigate = useNavigate();
   const { id } = useParams();
 
   const { data, isLoading } = useQuery({
@@ -111,7 +112,7 @@ function EntryPage() {
                   }}
                 />
                 <CardActions sx={{ paddingInline: 0, marginTop: "1rem" }}>
-                  <Stack direction="row" gap={2}>
+                  <Stack direction="row">
                     {/* edit */}
                     <Button
                       variant="contained"
@@ -119,22 +120,10 @@ function EntryPage() {
                         color: "primary.main",
                         backgroundColor: "text.primary",
                       }}
+                      onClick={() => navigate(`/update/${id}`)}
                       startIcon={<FaRegEdit />}
                     >
                       Edit
-                    </Button>
-                    {/* delete */}
-                    <Button
-                      variant="contained"
-                      sx={{
-                        color: "text.primary",
-                        backgroundColor: "rgba(181, 44, 44, 1)",
-                        transition: "0.2s ease",
-                        "&:hover": { color: "rgba(181, 44, 44, 1)" },
-                      }}
-                      startIcon={<MdOutlineDeleteOutline />}
-                    >
-                      Delete
                     </Button>
                   </Stack>
                 </CardActions>

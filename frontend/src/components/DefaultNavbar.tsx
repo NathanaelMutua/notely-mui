@@ -42,7 +42,7 @@ function DefaultNavbar() {
                 alignItems="center"
                 borderRadius="20px"
               >
-                <Box
+                <Stack
                   color="secondary"
                   fontSize="2.4rem"
                   display="flex"
@@ -52,9 +52,30 @@ function DefaultNavbar() {
                   margin="0.3rem"
                   borderRadius="5px"
                 >
-                  <FaRegNoteSticky />
-                </Box>
-                <Typography variant="h1" fontWeight="bold" fontSize="2rem">
+                  <FaRegNoteSticky
+                    style={{
+                      animation: "blinkGlow 3.5s infinite ease-in-out",
+                      color: "#001b64ff",
+                    }}
+                  />
+                </Stack>
+                <Typography
+                  variant="h1"
+                  fontWeight="bold"
+                  fontSize="2rem"
+                  sx={{
+                    transition:
+                      "transform 0.2s ease-in-out, text-shadow 0.2s ease-in-out, color 0.15s",
+                    "&:hover": {
+                      transform: "scale(1.1)",
+                      textShadow: "0 2px 6px rgba(0,0,0,0.4)",
+                    },
+                    "&:active": {
+                      transform: "scale(1.01)",
+                      color: "#c2d1ffff",
+                    },
+                  }}
+                >
                   Notely
                 </Typography>
               </Stack>

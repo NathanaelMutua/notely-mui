@@ -23,7 +23,7 @@ entryRouter.post(
   createEntry
 );
 entryRouter.get("/", validateToken, getUserEntries);
-entryRouter.get("/trash", fetchTrashedEntries);
+entryRouter.get("/trash", validateToken, fetchTrashedEntries);
 entryRouter.patch("/restore/:id", validateToken, validateEntryId, restoreEntry);
 entryRouter.get("/:id", validateToken, validateEntryId, getSpecificEntry);
 entryRouter.delete("/:id", validateToken, validateEntryId, addEntryToTrash);

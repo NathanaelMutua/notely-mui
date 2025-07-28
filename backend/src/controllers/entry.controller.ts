@@ -124,7 +124,7 @@ export const addEntryToTrash = async (req: Request, res: Response) => {
       entry: trashedEntry.title,
     });
   } catch (e) {
-    console.log(e);
+    // console.log(e);
     res.status(500).json({
       status: "error",
       message:
@@ -135,11 +135,22 @@ export const addEntryToTrash = async (req: Request, res: Response) => {
 };
 
 //function to retrieve all the trashed entries
-export const fetchTrashedEntries = async (_req: Request, res: Response) => {
+export const fetchTrashedEntries = async (req: Request, res: Response) => {
   try {
+    const id = (req as any).notelyUser.id;
+
     const trashedEntries = await myClient.entry.findMany({
       where: {
         isDeleted: true,
+        userId: id,
+      },
+      include: {
+        author: {
+          select: {
+            firstName: true,
+            lastName: true,
+          },
+        },
       },
       orderBy: {
         lastUpdated: "desc",
@@ -149,10 +160,10 @@ export const fetchTrashedEntries = async (_req: Request, res: Response) => {
       status: "retrieved",
       message: `${trashedEntries.length} deleted entries recovered.`,
       trash_status: trashedEntries.length > 0 ? "Occupied" : "Empty bin 🗑️",
-      trashed_entries: trashedEntries.length > 0 && trashedEntries,
+      trashed_entries: trashedEntries,
     });
   } catch (e) {
-    // console.log(e)
+    console.log(e);
     res.status(500).json({
       status: "error",
       message:
@@ -183,7 +194,7 @@ export const restoreEntry = async (req: Request, res: Response) => {
       entry: restoredEntry.title,
     });
   } catch (e) {
-    console.log(e);
+    // console.log(e);
     res.status(500).json({
       status: "error",
       message:

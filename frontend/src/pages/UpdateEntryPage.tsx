@@ -44,13 +44,6 @@ function UpdateEntryPage() {
       return response.data.entry;
     },
   });
-  if (isLoading) {
-    return (
-      <Box paddingTop={6}>
-        <LoadingComponent />
-      </Box>
-    );
-  }
 
   useEffect(() => {
     if (data) {
@@ -97,6 +90,14 @@ function UpdateEntryPage() {
       clearData();
     },
   });
+
+  if (isLoading) {
+    return (
+      <Box paddingTop={6}>
+        <LoadingComponent />
+      </Box>
+    );
+  }
   return (
     <Box minHeight="100vh" padding={3}>
       <Grid container justifyContent="center" spacing={3} pt={7}>

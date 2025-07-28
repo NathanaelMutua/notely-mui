@@ -32,6 +32,7 @@ interface Entry {
 function TrashListing() {
   const navigate = useNavigate();
   const queryClient = useQueryClient();
+
   async function handleEntryRestore(id: string) {
     mutate(id);
   }
@@ -67,6 +68,18 @@ function TrashListing() {
   return (
     <Box padding="3rem">
       <Grid container justifyContent="center" spacing={3}>
+        {data && data.length === 0 && (
+          <Box width="100%" textAlign="center" mt={4} padding={4}>
+            <Typography
+              variant="h4"
+              color="rgba(198, 62, 62, 1)"
+              textTransform="capitalize"
+              fontWeight="bold"
+            >
+              No Trashed Entries yet - Start making magic worth discarding.
+            </Typography>
+          </Box>
+        )}
         {data &&
           data.map((entry: Entry) => (
             <Grid

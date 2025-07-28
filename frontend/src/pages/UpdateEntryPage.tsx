@@ -18,6 +18,7 @@ import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
 import LoadingComponent from "../components/LoadingComponent";
 import { useQueryClient } from "@tanstack/react-query";
+import { IoLogoMarkdown } from "react-icons/io";
 
 interface Entry {
   title: string;
@@ -132,15 +133,39 @@ function UpdateEntryPage() {
                     rows={2}
                     value={synopsis}
                     onChange={(e) => setSynopsis(e.target.value)}
+                    inputProps={{ maxLength: 250 }}
                   />
+                  <Typography
+                    variant="caption"
+                    pt={0.5}
+                    fontWeight="bold"
+                    textAlign="right"
+                    paddingInline={1}
+                    borderRadius="2px"
+                    sx={{
+                      color:
+                        synopsis.length === 250
+                          ? "rgba(181, 44, 44, 1)"
+                          : "text.primary",
+                      backgroundColor:
+                        synopsis.length === 250
+                          ? "rgb(255,255,255,0.4)"
+                          : "none",
+                    }}
+                  >
+                    {synopsis.length}/250 Characters Max
+                  </Typography>
                 </Stack>
                 <Stack>
-                  <Typography variant="h6" fontWeight="bold">
-                    Content
-                  </Typography>
+                  <Stack direction="row" spacing={1} alignItems="center">
+                    <Typography variant="h6" fontWeight="bold">
+                      Content
+                    </Typography>
+                    <IoLogoMarkdown style={{ fontSize: "2rem" }} />
+                  </Stack>
                   <TextField
                     name="markdownContent"
-                    placeholder="Content (Strictly Markdown)"
+                    placeholder="Content (Better in Markdown)"
                     fullWidth
                     multiline
                     rows={7}

@@ -67,6 +67,7 @@ function EntryPage() {
                       variant="h2"
                       fontWeight="bold"
                       sx={{ paddingBottom: "0.5rem" }}
+                      color="#83eeff"
                     >
                       {data.title}
                     </Typography>
@@ -100,7 +101,11 @@ function EntryPage() {
                 />
                 <Card
                   className="markdown-body"
-                  sx={{ mt: 2, backgroundColor: "rgba(0, 62, 56, 0.31)" }}
+                  sx={{
+                    mt: 2,
+                    backgroundColor: "rgba(0, 62, 56, 0.31)",
+                    fontSize: "150%",
+                  }}
                   dangerouslySetInnerHTML={{
                     __html: `${data.htmlContent}`,
                   }}

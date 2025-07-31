@@ -13,6 +13,7 @@ import CreateEntryPage from "./pages/CreateEntryPage";
 import TrashPage from "./pages/TrashPage";
 import EntryPage from "./pages/EntryPage";
 import UpdateEntryPage from "./pages/UpdateEntryPage";
+import ProfilePage from "./pages/ProfilePage";
 
 function App() {
   return (
@@ -61,6 +62,14 @@ function App() {
               element={
                 <Protected>
                   <UpdateEntryPage />
+                </Protected>
+              }
+            />
+            <Route
+              path="/profile"
+              element={
+                <Protected>
+                  <ProfilePage />
                 </Protected>
               }
             />

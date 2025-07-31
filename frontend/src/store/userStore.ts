@@ -7,6 +7,7 @@ interface User {
   email: string;
   username: string;
   avatar: string;
+  lastProfileUpdate: string;
 }
 
 interface UserStore {

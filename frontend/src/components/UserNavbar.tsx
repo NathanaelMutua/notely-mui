@@ -155,7 +155,7 @@ function UserNavbar() {
                   </Typography>
                 </Stack>
               </Link>
-              <Link to="/" style={{ textDecoration: "none" }}>
+              <Link to="/profile" style={{ textDecoration: "none" }}>
                 <Stack
                   direction="row"
                   alignItems="center"

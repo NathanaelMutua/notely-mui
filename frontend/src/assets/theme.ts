@@ -55,6 +55,10 @@ const theme = createTheme({
             transform: "translateY(-1.5px) scale(1.02)",
             background: "rgba(255, 255, 255, 0.2)",
           },
+          "&:active": {
+            boxShadow: "0 1px 2px 0 rgba(60, 60, 60, 0.20)",
+            transform: "translateY(1px) scale(0.98)",
+          },
         },
       },
     },

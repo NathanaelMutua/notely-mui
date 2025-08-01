@@ -27,6 +27,47 @@ function UserNavbar() {
     console.log(response.data);
     navigate("/");
   }
+
+  // Function to get user initials
+  const getUserInitials = () => {
+    const firstInitial = user?.firstName?.[0]?.toUpperCase() || "";
+    const lastInitial = user?.lastName?.[0]?.toUpperCase() || "";
+    return firstInitial + lastInitial;
+  };
+
+  // Function to render avatar or initials
+  const renderAvatar = () => {
+    if (user?.avatar && user.avatar !== "null") {
+      return (
+        <img
+          src={user.avatar}
+          alt="Avatar"
+          style={{
+            width: "3rem",
+            height: "3rem",
+            borderRadius: "50%",
+            objectFit: "cover",
+          }}
+        />
+      );
+    } else {
+      return (
+        <Avatar
+          sx={{
+            backgroundColor: "#1565c0",
+            color: "#fff",
+            fontWeight: "bold",
+            fontSize: "1.5rem",
+            width: "3rem",
+            height: "3rem",
+          }}
+        >
+          {getUserInitials()}
+        </Avatar>
+      );
+    }
+  };
+
   return (
     <Box component="nav">
       <AppBar
@@ -175,19 +216,7 @@ function UserNavbar() {
                   >
                     <span color="primary">Welcome,</span> {user?.firstName}
                   </Typography>
-                  <Avatar
-                    sx={{
-                      backgroundColor: "#1565c0",
-                      color: "#fff",
-                      fontWeight: "bold",
-                      fontSize: "1.5rem",
-                      width: "3rem",
-                      height: "3rem",
-                    }}
-                  >
-                    {user?.firstName[0].toUpperCase()}
-                    {user?.lastName[0].toUpperCase()}
-                  </Avatar>
+                  {renderAvatar()}
                 </Stack>
               </Link>
               <Button

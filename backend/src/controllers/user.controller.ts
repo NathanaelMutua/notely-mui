@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { PrismaClient } from "@prisma/client";
-import bcrypt from "bcryptjs";
+import cloudinary from "../config/cloudinary";
 
 const myClient = new PrismaClient();
 
@@ -43,31 +43,71 @@ export const updateUserInfo = async (req: Request, res: Response) => {
   }
 };
 
-// update profile image
-export const updateAvatar = async (req: Request, res: Response) => {
+// Upload avatar image
+export const uploadAvatar = async (req: Request, res: Response) => {
   try {
     const id = (req as any).notelyUser.id;
-    const { avatarURL } = req.body;
+    const { imageUrl } = req.body;
 
+    if (!imageUrl) {
+      return res.status(400).json({
+        status: "fail",
+        message: "Image URL is required",
+      });
+    }
+
+    // Upload to Cloudinary
+    const result = await cloudinary.uploader.upload(imageUrl, {
+      folder: "notely-avatars",
+      width: 300,
+      height: 300,
+      crop: "fill",
+      quality: "auto",
+    });
+
+    // database update
     await myClient.user.update({
-      where: {
-        id,
-      },
+      where: { id },
       data: {
-        avatar: avatarURL,
+        avatar: result.secure_url,
       },
     });
+
     res.status(200).json({
       success: true,
-      message: `Avatar updated for user ID ${id}`,
+      message: "Avatar uploaded successfully",
+      avatarUrl: result.secure_url,
     });
-  } catch (e) {
-    // console.log(e);
+  } catch (error) {
+    console.error("Avatar upload error:", error);
     res.status(500).json({
       status: "error",
-      message:
-        "Something broke. Probably that spaghetti code we swore we fixed.",
-      recovery: "Try again, or send a motivational quote to the dev team.",
+      message: "Failed to upload avatar",
+    });
+  }
+};
+
+// Remove avatar
+export const removeAvatar = async (req: Request, res: Response) => {
+  try {
+    const id = (req as any).notelyUser.id;
+
+    await myClient.user.update({
+      where: { id },
+      data: {
+        avatar: null,
+      },
+    });
+
+    res.status(200).json({
+      success: true,
+      message: "Avatar removed successfully",
+    });
+  } catch (error) {
+    console.error("Avatar removal error:", error);
+    res.status(500).json({
+      status: "error",
+      message: "Failed to remove avatar",
     });
   }
 };

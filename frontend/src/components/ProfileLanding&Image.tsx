@@ -1,18 +1,10 @@
-import {
-  Avatar,
-  Box,
-  Button,
-  Card,
-  Divider,
-  Grid,
-  Stack,
-  Typography,
-} from "@mui/material";
+import { Box, Card, Divider, Grid, Stack, Typography } from "@mui/material";
 import { useState } from "react";
 import FormattedDate from "./FormattedDate";
 import { useQuery } from "@tanstack/react-query";
 import axiosInstance from "../api/axios";
 import { useUserData } from "../hooks/useUserData";
+import ImageUpload from "./ImageUpload";
 
 function ProfileLandingAndImage() {
   // const [avatar, setAvatar] = useState("");
@@ -88,24 +80,7 @@ function ProfileLandingAndImage() {
                   Notely User
                 </Typography>
               </Stack>
-              {true ? (
-                <Avatar
-                  src="/background-blue.jpeg"
-                  sx={{ height: "18rem", width: "18rem" }}
-                />
-              ) : (
-                <Avatar
-                  src="/background-blue.jpeg"
-                  sx={{ height: "18rem", width: "18rem", fontWeight: "bold" }}
-                >
-                  {user?.firstName[0].toUpperCase()}
-                  {user?.lastName[0].toUpperCase()}
-                </Avatar>
-              )}
-              <Stack direction="row" spacing={2} pt={3}>
-                <Button variant="contained">Update Image</Button>
-                <Button variant="outlined">Remove</Button>
-              </Stack>
+              <ImageUpload />
             </Box>
           </Card>
         </Grid>

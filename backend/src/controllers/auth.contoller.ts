@@ -71,9 +71,40 @@ export const signinUser = async (req: Request, res: Response) => {
     const { password: loginPassword, dateJoined, ...userDetails } = matchedUser;
 
     const token = jwt.sign(userDetails, process.env.JWT_SECRET!);
-    res.cookie("notelyToken", token).json(userDetails);
+    res.cookie("notelyToken", token).json({ userDetails });
   } catch (e) {
     // console.log(e)
+    res.status(500).json({
+      status: "error",
+      message:
+        "Something broke. Probably that spaghetti code we swore we fixed.",
+      recovery: "Try again, or send a motivational quote to the dev team.",
+    });
+  }
+};
+
+// pass current user details
+export const passCurrentUserDetails = async (req: Request, res: Response) => {
+  try {
+    const id = req.params.id;
+
+    const currentUser = await myClient.user.findFirst({
+      where: {
+        id,
+      },
+      select: {
+        id: true,
+        firstName: true,
+        lastName: true,
+        email: true,
+        avatar: true,
+        username: true,
+        lastProfileUpdate: true,
+      },
+    });
+    res.status(200).json(currentUser);
+  } catch (e) {
+    // console.log(e);
     res.status(500).json({
       status: "error",
       message:
@@ -102,9 +133,9 @@ export const signoutUser = async (req: Request, res: Response) => {
 export const updatePassword = async (req: Request, res: Response) => {
   try {
     const id = (req as any).notelyUser.id;
-    const { password } = req.body;
+    const { newPassword } = req.body;
 
-    const hashedPassword = await bcrypt.hash(password, 10);
+    const hashedPassword = await bcrypt.hash(newPassword, 10);
 
     await myClient.user.update({
       where: {
@@ -125,7 +156,7 @@ export const updatePassword = async (req: Request, res: Response) => {
     res.status(500).json({
       status: "error",
       message:
-        "Password update failed—our server stumbled over its own shoelaces.",
+        "Password update failed-our server stumbled over its own shoelaces.",
       suggestion: "Try again in a bit or notify the Notely tech wizards.",
     });
   }

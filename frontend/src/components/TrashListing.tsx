@@ -109,7 +109,11 @@ function TrashListing() {
                       borderRadius: "2px",
                     }}
                   />
-                  <Typography variant="body1" fontSize="1.4rem">
+                  <Typography
+                    variant="body1"
+                    fontSize="1.4rem"
+                    paddingBottom="2.3rem"
+                  >
                     {entry.synopsis}
                   </Typography>
 

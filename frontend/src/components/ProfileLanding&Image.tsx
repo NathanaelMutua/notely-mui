@@ -8,26 +8,26 @@ import {
   Stack,
   Typography,
 } from "@mui/material";
-import useUser from "../store/userStore";
 import { useState } from "react";
 import FormattedDate from "./FormattedDate";
 import { useQuery } from "@tanstack/react-query";
 import axiosInstance from "../api/axios";
+import { useUserData } from "../hooks/useUserData";
 
 function ProfileLandingAndImage() {
   // const [avatar, setAvatar] = useState("");
   const [trashCount, setTrashCount] = useState(0);
   const [entriesCount, setEntriesCount] = useState(0);
-  const { user } = useUser();
+  const { user } = useUserData();
 
   // request for trashed entry count
   useQuery({
     queryKey: ["retrieve-trashed-entries-count"],
     queryFn: async () => {
       const response = await axiosInstance.get("/api/entry/trash");
-      console.log(response);
+      console.log(response.data.message);
       setTrashCount(response.data.trashed_entries.length);
-      return response.data.trashed_entries.length;
+      return response.data.message;
     },
   });
 
@@ -36,11 +36,12 @@ function ProfileLandingAndImage() {
     queryKey: ["retrieve-entries-count"],
     queryFn: async () => {
       const response = await axiosInstance.get("/api/entry");
-      console.log(response);
+      console.log(response.data.message);
       setEntriesCount(response.data.entries.length);
-      return response.data.entries.length;
+      return response.data.message;
     },
   });
+
   return (
     <Box component="section">
       <Stack alignItems="right">

@@ -29,7 +29,11 @@ function ProfileSecurity() {
   const { mutate } = useMutation({
     mutationKey: ["update-password"],
     mutationFn: async (passwordDetails: Passwords) => {
-      const response = await axiosInstance.patch("/api", passwordDetails);
+      const response = await axiosInstance.patch(
+        "/api/auth/password",
+        passwordDetails
+      );
+      console.log(response);
       return response.data;
     },
     onError: (error) => {
@@ -42,6 +46,7 @@ function ProfileSecurity() {
   });
 
   function handlePasswordUpdate() {
+    setFormError("");
     const passwordDetails = {
       password: currentPassword,
       newPassword,

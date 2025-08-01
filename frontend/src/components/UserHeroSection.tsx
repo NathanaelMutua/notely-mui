@@ -2,11 +2,11 @@ import { Box, Button, Grid, Stack, Typography } from "@mui/material";
 import { FaPenNib, FaRegNoteSticky } from "react-icons/fa6";
 import { useNavigate } from "react-router-dom";
 import FeaturesSection from "./FeaturesSection";
-import useUser from "../store/userStore";
 import UserCallToAction from "./UserCallToAction";
+import { useUserData } from "../hooks/useUserData";
 
 function UserHeroSection() {
-  const { user } = useUser();
+  const { user } = useUserData();
   const navigate = useNavigate();
   return (
     <Box component="section">

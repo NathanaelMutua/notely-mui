@@ -10,7 +10,7 @@ const validatePasswordChangeInfo = async (
   if (!password || !newPassword || !confirmPassword) {
     return res.status(400).json({
       status: "fail",
-      message: "Password update failed—you're missing a few puzzle pieces.",
+      message: "Password update failed-you're missing a few puzzle pieces.",
       hint: `Password: ${Boolean(password)}, NewPassword: ${Boolean(
         newPassword
       )}, ConfirmPassword: ${Boolean(confirmPassword)}`,

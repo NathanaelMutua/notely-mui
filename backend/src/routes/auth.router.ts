@@ -1,5 +1,6 @@
 import { Router } from "express";
 import {
+  passCurrentUserDetails,
   signinUser,
   signoutUser,
   signupUser,
@@ -24,12 +25,13 @@ authRouter.post(
 );
 authRouter.post("/login", validateLoginInfo, signinUser);
 authRouter.post("/logout", signoutUser);
-authRouter.post(
+authRouter.patch(
   "/password",
   validateToken,
   validatePasswordChangeInfo,
   validatePasswordChangeMatch,
   updatePassword
 );
+authRouter.get("/user/:id", validateToken, passCurrentUserDetails);
 
 export default authRouter;

@@ -14,9 +14,11 @@ import { Link, useNavigate } from "react-router-dom";
 import { GoNote } from "react-icons/go";
 import useUser from "../store/userStore";
 import axiosInstance from "../api/axios";
+import { useUserData } from "../hooks/useUserData";
 
 function UserNavbar() {
-  const { user, logoutUser } = useUser();
+  const { logoutUser } = useUser();
+  const { user } = useUserData();
   const navigate = useNavigate();
 
   async function handleSignOut() {

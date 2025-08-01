@@ -2,6 +2,7 @@ import { type StateCreator, create } from "zustand";
 import { persist } from "zustand/middleware";
 
 interface User {
+  id: string;
   firstName: string;
   lastName: string;
   email: string;

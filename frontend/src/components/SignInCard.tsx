@@ -59,7 +59,8 @@ function SignInCard() {
       }
     },
     onSuccess: (notelyData) => {
-      setUser(notelyData);
+      console.log("Setting user data:");
+      setUser(notelyData.userDetails);
       navigate("/");
       clearData();
     },

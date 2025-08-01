@@ -163,7 +163,7 @@ export const fetchTrashedEntries = async (req: Request, res: Response) => {
       trashed_entries: trashedEntries,
     });
   } catch (e) {
-    console.log(e);
+    // console.log(e);
     res.status(500).json({
       status: "error",
       message:

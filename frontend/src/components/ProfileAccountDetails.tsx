@@ -9,11 +9,11 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import useUser from "../store/userStore";
-import { useState } from "react";
-import { useMutation } from "@tanstack/react-query";
+import { useEffect, useState } from "react";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import axiosInstance from "../api/axios";
 import axios from "axios";
+import { useUserData } from "../hooks/useUserData";
 
 interface User {
   firstName: string;
@@ -21,15 +21,25 @@ interface User {
 }
 
 function ProfileAccountDetails() {
-  const { user } = useUser();
-  const [firstName, setFirstName] = useState(user?.firstName!);
-  const [lastName, setLastName] = useState(user?.lastName!);
+  const queryClient = useQueryClient();
+  const { user } = useUserData();
+  const [firstName, setFirstName] = useState(user?.firstName ?? "");
+  const [lastName, setLastName] = useState(user?.lastName ?? "");
+  const [username, setUsername] = useState(user?.username ?? "");
   const [formError, setFormError] = useState("");
 
-  const { mutate } = useMutation({
+  useEffect(() => {
+    if (user) {
+      setFirstName(user.firstName ?? "");
+      setLastName(user.lastName ?? "");
+    }
+  }, [user]);
+
+  const { mutate, isPending } = useMutation({
     mutationKey: ["update-user-names"],
     mutationFn: async (userDetails: User) => {
-      const response = await axiosInstance.patch("/api", userDetails);
+      const response = await axiosInstance.patch("/api/user/info", userDetails);
+      console.log(response);
       return response.data;
     },
     onError: (error) => {
@@ -39,12 +49,20 @@ function ProfileAccountDetails() {
         setFormError("An Error Occurred in SignUp!");
       }
     },
+    onSuccess: () => {
+      console.log(
+        "ProfileAccountDetails: Update successful, invalidating query"
+      );
+      queryClient.invalidateQueries({ queryKey: ["fetch-user-data"] });
+    },
   });
 
   function handleUpdateUser() {
+    setFormError("");
     const userDetails = {
       firstName,
       lastName,
+      username,
     };
     mutate(userDetails);
   }
@@ -77,7 +95,7 @@ function ProfileAccountDetails() {
                 </Alert>
               </Stack>
             )}
-            <Stack pb={3}>
+            <Stack pb={1}>
               <Typography variant="h5" fontWeight="bold" fontSize="1.4rem">
                 First Name
               </Typography>
@@ -88,7 +106,7 @@ function ProfileAccountDetails() {
                 onChange={(e) => setFirstName(e.target.value)}
               />
             </Stack>
-            <Stack pb={1}>
+            <Stack pb={3}>
               <Typography variant="h5" fontWeight="bold" fontSize="1.4rem">
                 Last Name
               </Typography>
@@ -99,9 +117,24 @@ function ProfileAccountDetails() {
                 onChange={(e) => setLastName(e.target.value)}
               />
             </Stack>
+            <Stack pb={1}>
+              <Typography variant="h5" fontWeight="bold" fontSize="1.4rem">
+                Username
+              </Typography>
+              <TextField
+                placeholder="Last name"
+                size="small"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+              />
+            </Stack>
           </Stack>
           <CardActions sx={{ paddingInline: 0 }}>
-            <Button variant="contained" onClick={handleUpdateUser}>
+            <Button
+              variant="contained"
+              onClick={handleUpdateUser}
+              loading={isPending}
+            >
               Update Details
             </Button>
           </CardActions>
